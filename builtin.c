@@ -13,12 +13,6 @@ int execute_args(char **args)
 
 	int (*builtin_func[])(char **) = {&my_cd, &my_env, &my_help, &my_exit};
 
-	if (args[0] == NULL)
-	{
-	/* empty command was entered */
-		write(2, "no command entered", 20);
-		return (0);
-	}
 	/* find if the command is a builtin */
 	for (; i < sizeof(builtin_func_list) / sizeof(char *); i++)
 	{
@@ -71,6 +65,8 @@ int my_env(char *env[])
 {
 	int i;
 
+	if (env == NULL)
+		return (0);
 	while (env[i] != NULL)
 	{
 		printf("%s\n", env[i]);
@@ -102,9 +98,9 @@ int my_help(char **args)
  *
  * Return: Always returns 0 to signal the shell to exit.
  */
-int my_exit(char **args)
+int my_exit(char __attribute__((unused))**args)
 {
-	(void)args;
-	exit(0);
+	/* this value will be used to know if exit was entered */
+	return (-3);
 }
 

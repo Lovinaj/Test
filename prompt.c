@@ -31,8 +31,11 @@ int prompt(int argc, char *argv[], char **env)
 		{
 			status = accessCommand(receivedArgs, argv, env);
 		}
+
 		free(receivedArgs);
 		free(line);
+		if (status == -3)
+			exit(0);
 	}
-	return (0);
+	return (status);
 }
