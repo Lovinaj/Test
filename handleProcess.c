@@ -47,8 +47,9 @@ int accessCommand(char **arrayStr, char **argv, char *env[])
 	int p;
 
 	/*execute_builtin_command(arrayStr[0], arrayStr, env);*/
-	if (execute_args(arrayStr) == -3)
-		return (-3);
+	p = execute_args(arrayStr);
+	if (p == -3 || p == 0)
+		return (p);
 
 	if (access(arrayStr[0], F_OK) == 0)
 	{
@@ -57,6 +58,8 @@ int accessCommand(char **arrayStr, char **argv, char *env[])
 	}
 
 	p = handle_path(arrayStr, argv, env);
+	if (p == 127)
+		command_not_found(arrayStr, argv);
 
 	return (p);
 }
@@ -101,7 +104,6 @@ int handle_path(char **arrayStr, char **argv, char **env)
 			free(command);
 		}
 	}
-	command_not_found(arrayStr, argv);
 	free(path);
 	return (127);
 }

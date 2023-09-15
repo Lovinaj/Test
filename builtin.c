@@ -18,9 +18,12 @@ int execute_args(char **args)
 	{
 	/* if there is a match execute the builtin command */
 		if (strcmp(args[0], builtin_func_list[i]) == 0)
-			return ((*builtin_func[i])(args));
+		{
+			(*builtin_func[i])(args);
+			return (0);
+		}
 	}
-	return (0);
+	return (1);
 }
 
 /**
@@ -44,14 +47,12 @@ int my_cd(char **args)
 	}
 	else
 		home_dir = args[1];
-	printf("change to directory %s\n", home_dir);
 
 	if (chdir(home_dir) != 0)
 	{
 		perror("cd");
 		return (0);
 	}
-	printf("successfully change dir\n");
 	return (1);
 }
 
@@ -63,7 +64,7 @@ int my_cd(char **args)
  */
 int my_env(char *env[])
 {
-	int i;
+	int i = 0;
 
 	if (env == NULL)
 		return (0);
