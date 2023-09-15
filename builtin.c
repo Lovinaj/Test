@@ -18,12 +18,9 @@ int execute_args(char **args)
 	{
 	/* if there is a match execute the builtin command */
 		if (strcmp(args[0], builtin_func_list[i]) == 0)
-		{
-			(*builtin_func[i])(args);
-			return (0);
-		}
+			return ((*builtin_func[i])(args));
 	}
-	return (1);
+	return (-1);
 }
 
 /**
@@ -42,7 +39,7 @@ int my_cd(char **args)
 		if (home_dir == NULL)
 		{
 			write(2, "cd: HOME not set", 16);
-			return (0);
+			return (1);
 		}
 	}
 	else
@@ -51,9 +48,9 @@ int my_cd(char **args)
 	if (chdir(home_dir) != 0)
 	{
 		perror("cd");
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 /**
@@ -67,13 +64,13 @@ int my_env(char *env[])
 	int i = 0;
 
 	if (env == NULL)
-		return (0);
+		return (1);
 	while (env[i] != NULL)
 	{
 		printf("%s\n", env[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 /**
@@ -90,7 +87,7 @@ int my_help(char **args)
 	printf("env - Display environment variables\n");
 	printf("help - Display this help message\n");
 	printf("exit - Exit the shell\n");
-	return (1);
+	return (0);
 }
 
 /**
