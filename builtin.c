@@ -6,7 +6,7 @@
  *
  * Return: 1 on success, 0 on failure.
  */
-int execute_args(char **args)
+int execute_args(char **args, char **env)
 {
 	size_t i = 0;
 	char *builtin_func_list[] = {"cd", "env", "help", "exit"};
@@ -16,8 +16,10 @@ int execute_args(char **args)
 	/* find if the command is a builtin */
 	for (; i < sizeof(builtin_func_list) / sizeof(char *); i++)
 	{
-	/* if there is a match execute the builtin command */
-		if (strcmp(args[0], builtin_func_list[i]) == 0)
+		if (_strcmp(args[0], "env") == 0)
+			return (my_env(env));
+		/* if there is a match execute the builtin command */
+		if (_strcmp(args[0], builtin_func_list[i]) == 0)
 			return ((*builtin_func[i])(args));
 	}
 	return (-1);
@@ -31,25 +33,33 @@ int execute_args(char **args)
  */
 int my_cd(char **args)
 {
-	const char *home_dir;
+	const char *dir;
+	char *prev_dir = NULL;
 
-	if (args[1] == NULL)
+	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
 	{
-		home_dir = getenv("HOME");
-		if (home_dir == NULL)
-		{
-			write(2, "cd: HOME not set", 16);
-			return (1);
-		}
+		dir = getenv("HOME");
+		if (dir == NULL)
+			dir = getenv("PWD");
+	}
+	else if (_strcmp(args[1], "-") == 0)
+	{
+		dir = getenv("_OLDPWD");
+		if (dir == NULL)
+			dir = getenv("PWD");
 	}
 	else
-		home_dir = args[1];
+		dir = args[1];
 
-	if (chdir(home_dir) != 0)
+	prev_dir = getcwd(prev_dir, 0);
+	if (chdir(dir) != 0)
 	{
 		perror("cd");
+		free(prev_dir);
 		return (1);
 	}
+	setenv("_OLDPWD", prev_dir, 1);
+	free(prev_dir);
 	return (0);
 }
 

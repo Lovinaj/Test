@@ -35,7 +35,7 @@ void command_not_found(char **arrayStr, char **argv);
 char *_strdup(const char* str);
 void *_memcpy(void *dest, const void *src, size_t size);
 int getPath(char **arrayStr, char **argv, char **env);
-int execute_args(char **args);
+int execute_args(char **args, char **env);
 int my_cd(char **args);
 int my_env(char *env[]);
 int my_help(char **args);

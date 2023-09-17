@@ -47,7 +47,7 @@ int accessCommand(char **arrayStr, char **argv, char *env[])
 	int p;
 
 	/*execute_builtin_command(arrayStr[0], arrayStr, env);*/
-	p = execute_args(arrayStr);
+	p = execute_args(arrayStr, env);
 	if (p == -3 || p == 0 || p == 1)
 		return (p);
 
