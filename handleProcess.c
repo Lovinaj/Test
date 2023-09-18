@@ -88,6 +88,7 @@ int handle_path(char **arrayStr, char **argv, char **env)
 		free(path);
 		return (127);
 	}
+
 	shell_path = strtok(path, ":");
 	if (shell_path != NULL)
 	{

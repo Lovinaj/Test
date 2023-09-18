@@ -19,7 +19,7 @@ char *getLine(char *buffer, int status)
 	size_t n;
 
 	/* Read user input */
-	flag = getline(&buffer, &n, stdin);
+	flag = _getline(&buffer, &n, stdin);
 	if (flag == -1)
 	{
 		free(buffer);

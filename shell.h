@@ -41,5 +41,6 @@ int my_cd(char **args);
 int my_env(char *env[]);
 int my_help(char **args);
 int my_exit(char **args);
-
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 #endif
