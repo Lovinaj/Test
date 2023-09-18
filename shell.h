@@ -8,6 +8,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <stddef.h>
 
 #define MAX_INPUT_LENGTH 1024
 #define BUFFSIZE_STD 128

@@ -77,22 +77,22 @@ int handle_path(char **arrayStr, char **argv, char **env)
 		return (127);
 	}
 
-	shell_path = strtok(path, ":");
+	shell_path = _strtok(path, ":");
 	if (shell_path != NULL)
 	{
 		while (shell_path != NULL)
 		{
-			command = malloc(strlen(shell_path) +
-				strlen(arrayStr[0]) + 2);
+			command = malloc(_strlen(shell_path) +
+				_strlen(arrayStr[0]) + 2);
 			if (!command)
 			{
 				write(2, "Unable to allocate memory\n", 26);
 				exit(EXIT_FAILURE);
 			}
-			strcpy(command, shell_path);
+			_strcpy(command, shell_path);
 			/* shell_path does not end with '/' */
-			strcat(command, "/");
-			strcat(command, arrayStr[0]);
+			_strcat(command, "/");
+			_strcat(command, arrayStr[0]);
 			if (access(command, F_OK) == 0)
 			{
 				free(path);
@@ -100,7 +100,7 @@ int handle_path(char **arrayStr, char **argv, char **env)
 				free(command);
 				return (0);
 			}
-			shell_path = strtok(NULL, ":");
+			shell_path = _strtok(NULL, ":");
 			free(command);
 		}
 	}
