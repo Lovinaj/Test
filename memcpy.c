@@ -15,7 +15,7 @@ void *_memcpy(void *dest, const void *src, size_t size)
 	size_t i;
 
 	if (dest == NULL || src == NULL)
-		return NULL;
+		return (NULL);
 
 	dest_ptr = (unsigned char *)dest;
 

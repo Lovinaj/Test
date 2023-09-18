@@ -7,7 +7,8 @@
  * Return: A pointer to the concatenated string @str1
  */
 
-char *_strcat(char *dest, char *src) {
+char *_strcat(char *dest, char *src)
+{
 	char *ptr = NULL;
 
 	ptr = dest;

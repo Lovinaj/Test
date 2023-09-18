@@ -1,15 +1,15 @@
 #include "shell.h"
 
 /**
- * env_variable - reads envrionment varibles of the system and searches for the
- *		  PATH varialbe
+ * get_path - Get the PATH environment variable as a duplicated string.
+ * @arrayStr: Array of strings containing the command and its arguments.
  *
- * @env: array containing the environment variables
+ * This function retrieves the PATH environment variable and returns it as
+ * a duplicated string. The caller is responsible for freeing the memory
+ * allocated for the duplicated string when it's no longer needed.
  *
- * Return: return the PATH environment variable if found
- *	   return NULL if PATH variable is empty or not found
-*/
-
+ * Return: A pointer to the duplicated PATH string, or NULL on failure.
+ */
 char *get_path(char **arrayStr)
 {
 	char *path, *path_dup;

@@ -64,11 +64,23 @@ int accessCommand(char **arrayStr, char **argv, char *env[])
 	return (p);
 }
 
+/**
+ * handle_path - Handle command execution using the PATH environment variable.
+ * @arrayStr: Array of strings containing the command and its arguments.
+ * @argv: Array of strings containing the name of the shell and its arguments.
+ * @env: Array of strings containing the environment variables.
+ *
+ * This function tries to execute a command by searching for it in the
+ * directories specified in the PATH environment variable.
+ * Return: 0 if the command was successfully executed, or 127 if the command
+ *          was not found.
+ */
 int handle_path(char **arrayStr, char **argv, char **env)
 {
 	char *command;
 	char *shell_path, *path;
 
+	(void)env;
 	path = get_path(arrayStr);
 	if (path == NULL)
 	{
@@ -76,8 +88,7 @@ int handle_path(char **arrayStr, char **argv, char **env)
 		free(path);
 		return (127);
 	}
-
-	shell_path = _strtok(path, ":");
+	shell_path = strtok(path, ":");
 	if (shell_path != NULL)
 	{
 		while (shell_path != NULL)
@@ -100,7 +111,7 @@ int handle_path(char **arrayStr, char **argv, char **env)
 				free(command);
 				return (0);
 			}
-			shell_path = _strtok(NULL, ":");
+			shell_path = strtok(NULL, ":");
 			free(command);
 		}
 	}

@@ -3,7 +3,7 @@
 /**
  * execute_args - Execute a built-in command or create a new process.
  * @args: The command and its arguments.
- *
+ * @env: enviroment variables
  * Return: 1 on success, 0 on failure.
  */
 int execute_args(char **args, char **env)
@@ -64,10 +64,12 @@ int my_cd(char **args)
 }
 
 /**
- * my_env - Display environment variables.
- * @env: enviroment variables
+ * my_env - Print environment variables.
+ * @env: Array of strings containing environment variables.
  *
- * Return: Always returns 1.
+ * This function prints the environment variables one by one.
+ *
+ * Return: 0 on success, 1 if the env array is NULL.
  */
 int my_env(char *env[])
 {
